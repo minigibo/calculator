@@ -21,7 +21,6 @@ body {
   font-family: $font-main;
   padding: 0;
   margin: 0;
-  background-color: lightblue;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -29,9 +28,12 @@ body {
 }
 
 .calculator__grid {
+  border-radius: 30px;
   background-color: black;
   display: grid;
-  gap: 20px;
+  gap: 10px;
+  padding: 20px;
+  border: 5px solid slategrey;
   justify-content: center;
   align-content: center;
   grid-template-columns: repeat(4, 100px);
@@ -50,5 +52,17 @@ body {
 }
 
 .calculator__button {
-  border-radius: 20px;
+  border-radius: 30px;
+
+  &#operationTwo {
+    background-color: #b2b2b2;
+  }
+
+  &#operation {
+    background-color: #dba234;
+  }
+
+  &#number {
+    background-color: #393a42;
+  }
 }
