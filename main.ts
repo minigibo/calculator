@@ -111,6 +111,10 @@ const calculationOperation = (value: string) => {
       result = previousValue * currentValue;
       break;
     case "/":
+      if (currentValue === 0) {
+        currentTotalOutput.innerText = "Oh no....";
+        return;
+      }
       result = previousValue / currentValue;
       break;
     default:
