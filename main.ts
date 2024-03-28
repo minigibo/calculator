@@ -27,7 +27,15 @@ if (
 // try to get the previous operator to show the values that are being pressed
 const outputScreenUpdate = (value: string) => {
   currentInput += value;
-  currentTotalOutput.innerText = currentInput;
+  const formattedInput = addCommas(currentInput);
+  currentTotalOutput.innerText = formattedInput;
+};
+
+// format the input so it adds comma when there are 3 digits that are followed by another digit.
+const addCommas = (numberString: string): string => {
+  const parts = numberString.split(".");
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return parts.join(".");
 };
 
 const clear = () => {
@@ -36,12 +44,23 @@ const clear = () => {
   currentInput = "";
 };
 
+// backspace that will convert the current display featuring commas back without the commas
+const backSpace = () => {
+  let currentText = currentTotalOutput.innerText.replace(/,/g, "");
+  currentText = currentText.slice(0, -1);
+  currentInput = currentText;
+  currentText = addCommas(currentText);
+  currentTotalOutput.innerText = currentText;
+};
+
 inputButtons.forEach((button) => {
   button.addEventListener(`click`, () => {
     const value = button.dataset.value;
 
     if (value == "ac") {
       clear();
+    } else if (value === "del") {
+      backSpace();
     } else {
       outputScreenUpdate(`${value}`);
     }
