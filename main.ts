@@ -88,7 +88,10 @@ const moveValueToPrevious = (operator: string) => {
 };
 
 // calculation function using switch case to determine which operation to carry out
-const calculationOperation = () => {
+const calculationOperation = (value: string) => {
+  if (currentInput === "" && value === "=") {
+    return;
+  }
   const previousValue = parseFloat(
     previousTotalOutput.innerText.replace(/,/g, "")
   );
@@ -150,7 +153,7 @@ inputButtons.forEach((button) => {
       value === "+"
     ) {
       if (previousTotalOutput.innerText && currentTotalOutput.innerText) {
-        calculationOperation();
+        calculationOperation(`${value}`);
       }
       moveValueToPrevious(value);
     } else if (value === "%") {
@@ -160,7 +163,7 @@ inputButtons.forEach((button) => {
     } else if (value === "del") {
       backSpace();
     } else if (value === "=") {
-      calculationOperation();
+      calculationOperation(`${value}`);
     } else {
       outputScreenUpdate(`${value}`);
     }
