@@ -15,6 +15,7 @@ const currentTotalOutput =
 
 let currentInput = "";
 
+// running the selector standard error procedure
 if (
   !inputButtons ||
   !outputScreen ||
@@ -38,6 +39,7 @@ const addCommas = (numberString: string): string => {
   return parts.join(".");
 };
 
+// will set the innerText of both the previous and current display to empty
 const clear = () => {
   previousTotalOutput.innerText = "";
   currentTotalOutput.innerText = "";
@@ -53,12 +55,26 @@ const backSpace = () => {
   currentTotalOutput.innerText = currentText;
 };
 
+// function to change sign when +/- pressed
+const signChange = () => {
+  let currentText = currentTotalOutput.innerText.replace(/,/g, "");
+  let newValue = parseFloat(currentText) * -1;
+  currentInput = newValue.toString();
+  currentInput = addCommas(currentInput);
+  currentTotalOutput.innerText = currentInput;
+};
+
+// function that when an operation button is pressed moves the current display and the operation to the previous display
+
+// running for each loop that using an event listenener to run each time one of the calculator buttons are pressed
 inputButtons.forEach((button) => {
   button.addEventListener(`click`, () => {
     const value = button.dataset.value;
 
     if (value == "ac") {
       clear();
+    } else if (value === "+-") {
+      signChange();
     } else if (value === "del") {
       backSpace();
     } else {
