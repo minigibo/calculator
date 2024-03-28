@@ -47,14 +47,22 @@
         <div id="previous-operand">Previous</div>
         <div id="current-operand">Current</div>
       </div>
-      <button class="calculator__button" id="operationTwo">AC</button>
-      <button class="calculator__button" id="operationTwo">+/-</button>
-      <button class="calculator__button" id="operationTwo">%</button>
-      <button class="calculator__button" id="operation">÷</button>
-      <button class="calculator__button" id="number">1</button>
-      <button class="calculator__button" id="number">2</button>
-      <button class="calculator__button" id="number">3</button>
-      <button class="calculator__button" id="operation">
+      <button class="calculator__button" id="operationTwo" data-value="ac">
+        AC
+      </button>
+      <button class="calculator__button" id="operationTwo" data-value="+-">
+        +/-
+      </button>
+      <button class="calculator__button" id="operationTwo" data-value="%">
+        %
+      </button>
+      <button class="calculator__button" id="operation" data-value="/">
+        ÷
+      </button>
+      <button class="calculator__button" id="number" data-value="1">1</button>
+      <button class="calculator__button" id="number" data-value="2">2</button>
+      <button class="calculator__button" id="number" data-value="3">3</button>
+      <button class="calculator__button" id="operation" data-value="*">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           height="2rem"
@@ -67,17 +75,21 @@
           />
         </svg>
       </button>
-      <button class="calculator__button" id="number">4</button>
-      <button class="calculator__button" id="number">5</button>
-      <button class="calculator__button" id="number">6</button>
-      <button class="calculator__button" id="operation">-</button>
-      <button class="calculator__button" id="number">7</button>
-      <button class="calculator__button" id="number">8</button>
-      <button class="calculator__button" id="number">9</button>
-      <button class="calculator__button" id="operation">+</button>
-      <button class="calculator__button" id="number">.</button>
-      <button class="calculator__button" id="number">0</button>
-      <button class="calculator__button" id="delete">
+      <button class="calculator__button" id="number" data-value="4">4</button>
+      <button class="calculator__button" id="number" data-value="5">5</button>
+      <button class="calculator__button" id="number" data-value="6">6</button>
+      <button class="calculator__button" id="operation" data-value="-">
+        -
+      </button>
+      <button class="calculator__button" id="number" data-value="7">7</button>
+      <button class="calculator__button" id="number" data-value="8">8</button>
+      <button class="calculator__button" id="number" data-value="9">9</button>
+      <button class="calculator__button" id="operation" data-value="+">
+        +
+      </button>
+      <button class="calculator__button" id="number" data-value=".">.</button>
+      <button class="calculator__button" id="number" data-value="0">0</button>
+      <button class="calculator__button" id="delete" data-value="del">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           height="2rem"
@@ -91,7 +103,7 @@
           />
         </svg>
       </button>
-      <button class="calculator__button" id="equals">=</button>
+      <button class="calculator__button" id="equals" data-value="=">=</button>
     </div>
   </body>
 </html>
