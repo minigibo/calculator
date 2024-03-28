@@ -67,10 +67,14 @@ const signChange = () => {
 // function that when an operation button is pressed moves the current display and the operation to the previous display
 const moveValueToPrevious = (operator: string) => {
   const currentValue = currentTotalOutput.innerText.replace(/,/g, "");
-  previousTotalOutput.innerText = `${currentValue} ${operator}`;
-  currentTotalOutput.innerText = "";
-  currentInput = "";
+  if (currentValue !== "") {
+    previousTotalOutput.innerText = `${currentValue} ${operator}`;
+    currentTotalOutput.innerText = "";
+    currentInput = "";
+  }
 };
+
+//
 
 // running for each loop that using an event listenener to run each time one of the calculator buttons are pressed
 inputButtons.forEach((button) => {
