@@ -28,6 +28,9 @@ if (
 // try to get the previous operator to show the values that are being pressed. Also preventing a decimal place at the start or more than once.
 const outputScreenUpdate = (value: string) => {
   const decimalPointCheck = currentInput.includes(".");
+  if (currentInput.length + value.length > 15) {
+    return;
+  }
   if (currentInput === "" && value === "%") {
     return;
   }
@@ -41,12 +44,24 @@ const outputScreenUpdate = (value: string) => {
     return;
   }
   currentInput += value;
-  const formattedInput = addCommas(currentInput);
+  const formattedInput = formatNumber(parseFloat(currentInput));
   currentTotalOutput.innerText = formattedInput;
 };
 
-// format the input so it adds comma when there are 3 digits that are followed by another digit.
+// formatting function for if the output is too large to display to convert to expotential
+const formatNumber = (number: number): string => {
+  const numString = number.toString();
+  const maxLength = 15;
+  if (numString.length > maxLength) {
+    return number.toExponential();
+  } else return addCommas(numString);
+};
+
+// format the input so it adds comma when there are 3 digits that are followed by another digit. Also checks if zero is first character if so just returns parameter.
 const addCommas = (numberString: string): string => {
+  if (numberString === "0" || /^0\d+/.test(numberString)) {
+    return numberString;
+  }
   const parts = numberString.split(".");
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   return parts.join(".");
@@ -115,7 +130,7 @@ const calculationOperation = (value: string) => {
       break;
     case "/":
       if (currentValue === 0) {
-        currentTotalOutput.innerText = "Oh no....";
+        currentTotalOutput.innerText = "Well done you broke me";
         setTimeout(() => {
           currentTotalOutput.innerText = "";
           previousTotalOutput.innerText = "";
@@ -127,7 +142,7 @@ const calculationOperation = (value: string) => {
     default:
       throw new Error("Invalid operation");
   }
-  currentTotalOutput.innerText = addCommas(result.toString());
+  currentTotalOutput.innerText = formatNumber(result);
   previousTotalOutput.innerText = "";
 };
 
