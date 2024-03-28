@@ -57,14 +57,20 @@ const backSpace = () => {
 
 // function to change sign when +/- pressed
 const signChange = () => {
-  let currentText = currentTotalOutput.innerText.replace(/,/g, "");
-  let newValue = parseFloat(currentText) * -1;
+  const currentText = currentTotalOutput.innerText.replace(/,/g, "");
+  const newValue = parseFloat(currentText) * -1;
   currentInput = newValue.toString();
   currentInput = addCommas(currentInput);
   currentTotalOutput.innerText = currentInput;
 };
 
 // function that when an operation button is pressed moves the current display and the operation to the previous display
+const moveValueToPrevious = (operator: string) => {
+  const currentValue = currentTotalOutput.innerText.replace(/,/g, "");
+  previousTotalOutput.innerText = `${currentValue} ${operator}`;
+  currentTotalOutput.innerText = "";
+  currentInput = "";
+};
 
 // running for each loop that using an event listenener to run each time one of the calculator buttons are pressed
 inputButtons.forEach((button) => {
@@ -73,6 +79,13 @@ inputButtons.forEach((button) => {
 
     if (value == "ac") {
       clear();
+    } else if (
+      value === "/" ||
+      value === "*" ||
+      value === "-" ||
+      value === "+"
+    ) {
+      moveValueToPrevious(value);
     } else if (value === "+-") {
       signChange();
     } else if (value === "del") {
