@@ -1,0 +1,49 @@
+@use "./variables" as *;
+
+.themeLight {
+  background-color: #fff;
+
+  .theme__switcher {
+    background-color: $dark-background;
+    border: 2px solid $dark-background;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+
+    .light {
+      border-top-left-radius: 30px;
+      border-bottom-left-radius: 30px;
+      &:hover {
+        background-color: darken($color: $light-background, $amount: 20%);
+      }
+    }
+
+    .dark {
+      border-top-right-radius: 30px;
+      border-bottom-right-radius: 30px;
+      &:hover {
+        background-color: darken($color: $light-background, $amount: 20%);
+      }
+    }
+  }
+
+  header {
+    color: $dark-background;
+  }
+
+  .calculator__grid {
+    background-color: darken($color: $light-background, $amount: 10%);
+    border: 5px solid $dark-background;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+  }
+
+  .calculator__output {
+    #current-operand {
+      color: $dark-background;
+    }
+    #previous-operand {
+      color: lighten($color: $dark-background, $amount: 20%);
+    }
+  }
+}

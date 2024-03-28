@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
-$font-main: "IBM Plex Sans", "sans-serif";
+@use "./variables" as *;
+@use "./themeLight.scss";
 
 * {
   margin: 0;
@@ -12,9 +12,43 @@ header {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin: 10px auto;
+  margin: 10px auto 10px;
   height: 20px;
   max-width: 90%;
+  color: $light-background;
+}
+
+.theme__switcher {
+  margin-bottom: 20px;
+  background-color: transparent;
+  display: flex;
+
+  .theme__button {
+    cursor: pointer;
+    font-size: 2rem;
+    font-weight: bold;
+    border: none;
+    background-color: $light-background;
+    padding: 0px 10px;
+  }
+
+  .light {
+    background-color: $light-background;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    &:hover {
+      background-color: darken($color: $light-background, $amount: 20%);
+    }
+  }
+
+  .dark {
+    background-color: $light-background;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    &:hover {
+      background-color: darken($color: $light-background, $amount: 20%);
+    }
+  }
 }
 
 body {
@@ -25,19 +59,22 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: $dark-background;
 }
 
 .calculator__grid {
+  height: calc(90vh - 60px);
+  width: 90%;
   border-radius: 30px;
   background-color: black;
   display: grid;
   gap: 10px;
-  padding: 20px;
+  padding: 40px 20px;
   border: 5px solid slategrey;
   justify-content: center;
   align-content: center;
-  grid-template-columns: repeat(4, 100px);
-  grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+  grid-template-columns: repeat(4, minmax(15%, 1fr));
+  grid-template-rows: minmax(120px, auto) repeat(5, minmax(15%, 1fr));
 }
 
 .calculator__output {
@@ -49,20 +86,82 @@ body {
   padding: 10px;
   word-wrap: break-word;
   word-break: break-all;
+
+  #current-operand {
+    color: white;
+    font-size: 2.5rem;
+  }
+
+  #previous-operand {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 1.5rem;
+  }
 }
 
 .calculator__button {
-  border-radius: 30px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 2rem;
+  font-weight: bold;
 
   &#operationTwo {
-    background-color: #b2b2b2;
+    background-color: $operation-two;
+
+    &:hover {
+      background-color: lighten($color: $operation-two, $amount: 20%);
+    }
   }
 
   &#operation {
-    background-color: #dba234;
+    background-color: $operation;
+    color: $light-background;
+
+    &:hover {
+      background-color: lighten($color: $operation, $amount: 20%);
+    }
+  }
+
+  &#equals {
+    background-color: $operation;
+    color: $light-background;
+
+    &:hover {
+      background-color: lighten($color: $operation, $amount: 20%);
+    }
   }
 
   &#number {
-    background-color: #393a42;
+    background-color: $number-button;
+    color: $light-background;
+
+    &:hover {
+      background-color: lighten($color: $number-button, $amount: 20%);
+    }
+  }
+
+  &#delete {
+    background-color: $number-button;
+
+    &:hover {
+      background-color: lighten($color: $number-button, $amount: 20%);
+    }
+  }
+}
+
+@media screen and (min-width: 500px) and (max-width: 768px) {
+  .calculator__grid {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 875px) {
+  .calculator__grid {
+    width: 60%;
+  }
+}
+
+@media screen and (min-width: 876px) {
+  .calculator__grid {
+    width: 40%;
   }
 }
