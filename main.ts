@@ -34,6 +34,9 @@ const outputScreenUpdate = (value: string) => {
   if (currentInput === "" && value === ".") {
     return;
   }
+  if (currentInput === "0" && value === "0") {
+    return;
+  }
   if (decimalPointCheck && value === ".") {
     return;
   }
@@ -113,6 +116,10 @@ const calculationOperation = (value: string) => {
     case "/":
       if (currentValue === 0) {
         currentTotalOutput.innerText = "Oh no....";
+        setTimeout(() => {
+          currentTotalOutput.innerText = "";
+          previousTotalOutput.innerText = "";
+        }, 3000);
         return;
       }
       result = previousValue / currentValue;
