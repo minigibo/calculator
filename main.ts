@@ -34,9 +34,6 @@ const outputScreenUpdate = (value: string) => {
   if (currentInput === "" && value === "%") {
     return;
   }
-  if (currentInput === "" && value === ".") {
-    return;
-  }
   if (currentInput === "0" && value === "0") {
     return;
   }
@@ -44,7 +41,7 @@ const outputScreenUpdate = (value: string) => {
     return;
   }
   currentInput += value;
-  const formattedInput = formatNumber(parseFloat(currentInput));
+  const formattedInput = addCommas(currentInput);
   currentTotalOutput.innerText = formattedInput;
 };
 
