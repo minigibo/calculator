@@ -25,7 +25,7 @@ if (
   throw new Error(`issue with the query selectors`);
 }
 
-// try to get the previous operator to show the values that are being pressed. Also preventing a decimal place at the start or more than once.
+// function that handles output when buttons pressed
 const outputScreenUpdate = (value: string) => {
   const decimalPointCheck = currentInput.includes(".");
   if (currentInput.length + value.length > 15) {
@@ -54,7 +54,7 @@ const formatNumber = (number: number): string => {
   } else return addCommas(numString);
 };
 
-// format the input so it adds comma when there are 3 digits that are followed by another digit. Also checks if zero is first character if so just returns parameter.
+// format the input to adds comma within the output number
 const addCommas = (numberString: string): string => {
   if (numberString === "0" || /^0\d+/.test(numberString)) {
     return numberString;
@@ -85,6 +85,9 @@ const signChange = (value: string) => {
   if (currentInput === "" && value === "+-") {
     return;
   }
+  if (currentInput === "." && value === "+-") {
+    return;
+  }
   const currentText = currentTotalOutput.innerText.replace(/,/g, "");
   const newValue = parseFloat(currentText) * -1;
   currentInput = newValue.toString();
@@ -95,6 +98,15 @@ const signChange = (value: string) => {
 // function that when an operation button is pressed moves the current display and the operation to the previous display
 const moveValueToPrevious = (operator: string) => {
   const currentValue = currentTotalOutput.innerText.replace(/,/g, "");
+  if (
+    currentInput === "." &&
+    (operator === "/" ||
+      operator === "*" ||
+      operator === "+" ||
+      operator === "-")
+  ) {
+    return;
+  }
   if (currentValue !== "") {
     previousTotalOutput.innerText = `${currentValue} ${operator}`;
     currentTotalOutput.innerText = "";
@@ -143,9 +155,12 @@ const calculationOperation = (value: string) => {
   previousTotalOutput.innerText = "";
 };
 
-// function for if % button is pressed effectively divdes the current output by 100 first checking if there is a value in there
+// function for if % button is pressed divides  current output by 100
 const percentage = (value: string) => {
   if (currentInput === "" && value === "%") {
+    return;
+  }
+  if (currentInput === "." && value === "%") {
     return;
   }
   const currentValue = currentTotalOutput.innerText.replace(/,/g, "");
