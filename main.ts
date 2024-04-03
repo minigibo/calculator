@@ -32,6 +32,8 @@ const lockCalculator = (duration: number) => {
   isCalculatorLocked = true;
   setTimeout(() => {
     isCalculatorLocked = false;
+    currentTotalOutput.innerText = "";
+    previousTotalOutput.innerText = "";
   }, duration);
 };
 
@@ -150,12 +152,7 @@ const calculationOperation = (value: string) => {
     case "/":
       if (currentValue === 0) {
         currentTotalOutput.innerText = "Well done you broke me";
-        isCalculatorLocked = true;
-        setTimeout(() => {
-          currentTotalOutput.innerText = "";
-          previousTotalOutput.innerText = "";
-          isCalculatorLocked = false;
-        }, 3000);
+        lockCalculator(3000);
         return;
       }
       result = previousValue / currentValue;
