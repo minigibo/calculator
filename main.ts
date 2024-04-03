@@ -1,5 +1,6 @@
 import "./style.scss";
 import { themeChange } from "./theme";
+import { triggerConfetti } from "./confetti";
 themeChange();
 
 const inputButtons =
@@ -152,6 +153,7 @@ const calculationOperation = (value: string) => {
     case "/":
       if (currentValue === 0) {
         currentTotalOutput.innerText = "Well done you broke me";
+        triggerConfetti();
         lockCalculator(3000);
         return;
       }
