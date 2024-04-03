@@ -15,6 +15,8 @@ const currentTotalOutput =
 
 let currentInput = "";
 
+let isCalculatorLocked = false;
+
 // running the selector standard error procedure
 if (
   !inputButtons ||
@@ -24,6 +26,14 @@ if (
 ) {
   throw new Error(`issue with the query selectors`);
 }
+
+// Function to lock the calculator when it is broken
+const lockCalculator = (duration: number) => {
+  isCalculatorLocked = true;
+  setTimeout(() => {
+    isCalculatorLocked = false;
+  }, duration);
+};
 
 // function that handles output when buttons pressed
 const outputScreenUpdate = (value: string) => {
@@ -140,9 +150,11 @@ const calculationOperation = (value: string) => {
     case "/":
       if (currentValue === 0) {
         currentTotalOutput.innerText = "Well done you broke me";
+        isCalculatorLocked = true;
         setTimeout(() => {
           currentTotalOutput.innerText = "";
           previousTotalOutput.innerText = "";
+          isCalculatorLocked = false;
         }, 3000);
         return;
       }
@@ -180,6 +192,9 @@ const percentage = (value: string) => {
 // running for each loop that using an event listenener to run each time one of the calculator buttons are pressed
 inputButtons.forEach((button) => {
   button.addEventListener(`click`, () => {
+    if (isCalculatorLocked) {
+      return;
+    }
     const value = button.dataset.value;
 
     if (value === "ac") {
