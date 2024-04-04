@@ -132,6 +132,9 @@ const calculationOperation = (value: string) => {
   if (currentInput === "" && value === "=") {
     return;
   }
+  if (currentInput === ".") {
+    return;
+  }
   const previousValue = parseFloat(
     previousTotalOutput.innerText.replace(/,/g, "")
   );
